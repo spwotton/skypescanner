@@ -1,0 +1,2 @@
+scapy>=2.5.0
+transformers>=4.41.0
