@@ -37,6 +37,10 @@ Consejo: si un archivo .json o .md te parece muy técnico, dime y te lo conviert
 - Imagen de espectro: `monitor_output/2025/reports/ultrasonic_spectrogram.png`.
 - Conjunto “wow”: `wow_audio_report.json`, `wow_extracted.wav`, `wow_extracted.spectrum.png`.
 
+Complementos de señales por captura:
+- `evidence/ou_all_signals_report.md` (cortes largos de internet)
+- `evidence/worthless_all_signals_report.md` (energía ultrasónica presente)
+
 ## 8) Radiografía de puertos en casa
 - Archivo: `integration_output/quick_scan_1759913060.json`
 - Sección `open_hosts`: por ejemplo `192.168.100.4` con 135/139/445/8000 abiertos.
@@ -54,6 +58,13 @@ Consejo: si un archivo .json o .md te parece muy técnico, dime y te lo conviert
 ## 11) Reportes de “señales” por captura
 - `evidence/ou_all_signals_report.md` y `evidence/worthless_all_signals_report.md`.
 - Muestran resúmenes de cortes de internet, intensidad de tráfico y energía ultrasónica.
+
+## 12) Chequeos Wi‑Fi (deauth) y SETECOM
+- Wi‑Fi deauth: `processed_output/worthless_all/wifi_deauth.json` → en esa corrida: `dot11_present: false`, `deauth_frames: 0`.
+- SETECOM: `blocklist_output/setecom_report.json` → actualmente sin hallazgos (`ips: []`).
+
+## 13) Configuración de inteligencia local (contexto ICE/RACSA/SETECOM)
+- `docs/threat_intel_config.yml` → define entidades locales (ICE/RACSA/SETECOM), señales (ultrasonic, li-fi, rf_anomaly, port_rotation) y rutas de datos.
 
 ---
 

@@ -1,10 +1,10 @@
-# Informe sencillo en español: Lo que pasó, cómo lo medimos y dónde está la evidencia
+# Informe sencillo (caraqueño) – Qué pasó, cómo lo medimos y dónde está la evidencia
 
 Fecha: 12 de octubre de 2025
 
 Este mensaje es para explicarte, en palabras simples, por qué llevo meses diciendo que algo raro estaba pasando con la red y por qué no era solo “mis vicios”. Medí, grabé y guardé pruebas. Aquí te cuento qué encontramos y, sobre todo, dónde puedes ver y escuchar cada cosa con tus propios ojos y oídos.
 
-Importante: no necesitas ser técnica. Piensa en internet como calles con carros. “Paquetes” son como cartas que viajan. Cuando hay acoso o ataque, vemos carros muy raros, en horarios extraños, tocando timbres de muchas casas a la vez o con sobres sellados (cifrados) todos del mismo tamaño.
+Importante: no tienes que ser técnica, vale. Piensa en internet como calles con carros. “Paquetes” son como cartas que viajan. Cuando hay acoso o ataque, vemos carros raros, a horas extrañas, tocando timbres de muchas casas a la vez o con sobres sellados (cifrados) todos del mismo tamaño.
 
 ---
 
@@ -18,6 +18,12 @@ Importante: no necesitas ser técnica. Piensa en internet como calles con carros
 Todo esto está guardado en esta carpeta. Abajo te digo exactamente dónde y cómo verlo.
 
 ---
+
+## 1.1) Contexto local (modo caraqueño, al grano)
+
+- Cuando acá digo “ICE” hablo del proveedor Instituto Costarricense de Electricidad/Telecomunicaciones. Varias IPs problemáticas pertenecen a rangos usados en Costa Rica y aparecen en nuestras listas de bloqueo del router.
+- “Li‑Fi” no es magia: es transmitir datos usando luz (LEDs) en vez de radio. No estoy diciendo que haya pasado eso aquí; lo nombro porque salió en conversaciones y la configuración del proyecto contempla esa señal para clasificar si algún día apareciera evidencia. Más abajo lo explico clarito.
+- Sobre personas con nombre y apellido (por ejemplo, “Héctor Mora”): aquí no afirmo culpables. Me limito a la evidencia técnica que tenemos en estos archivos. Si hay chats, llamadas o audios que quieras adjuntar, se integran con fecha y hora y se comparan contra los eventos de red.
 
 ## 2) Cinco pruebas fáciles de verificar
 
@@ -64,6 +70,8 @@ Cómo verlo:
   - Abre las imágenes de espectro (`ultrasonic_spectrogram.png` y `wow_extracted.spectrum.png`). Se ven “bandas” claras en frecuencias altas.
   - Puedes reproducir los WAV, aunque lo ultrasónico no se oye; sirve para constatar que el archivo existe y su duración.
 
+Nota: También medimos “deauth” (ataques para botarte del Wi‑Fi). En `processed_output/worthless_all/wifi_deauth.json` dice `dot11_present: false` y `deauth_frames: 0`. O sea, en esa captura no hubo evidencia de que te estuvieran tumbando el Wi‑Fi por esa vía.
+
 ### Prueba E: Radiografía de la red en casa (puertas abiertas)
 
 - Archivo: `integration_output/quick_scan_1759913060.json`
@@ -76,11 +84,14 @@ Cómo verlo: abre el JSON y revisa la sección `open_hosts`.
 
 ## 3) Cronología corta (con referencias)
 
+- Desde “Breakwater”: A partir de ese punto (tu referencia personal de cuándo empezó lo fuerte), la actividad extraña se fue haciendo más constante. Para ver el historial por captura, abre `evidence/evidence_manifest.jsonl` (cada línea resume una corrida con sus artefactos).
 - 8 de octubre de 2025: Se registran múltiples anomalías de alta entropía desde `201.191.210.138` hacia `192.168.100.4` (ver `analysis/correlation_report.json` y `analysis/anomalies.json`).
-- 9 de octubre de 2025: Se genera un reporte de emergencia y se bloquea la IP atacante `201.203.20.140` en Windows Firewall (ver `EMERGENCY_THREAT_REPORT.md`).
+- 9 de octubre de 2025: Se genera un reporte de emergencia y se bloquea la IP `201.203.20.140` en Windows Firewall (ver `EMERGENCY_THREAT_REPORT.md`).
 - 10–11 de octubre de 2025: 
-  - Señal ultrasónica detectada en capturas de audio (ver `monitor_output/audio/ultrasonic_report.json` y reportes tipo `evidence/worthless_all_signals_report.md`).
-  - Se consolidan reglas de bloqueo para el router con foco en IPs de “ICE” (ver `blocklist_output/router_rules_ICE_HG8245W5.txt`).
+  - Señal ultrasónica detectada en capturas de audio (ver `monitor_output/audio/ultrasonic_report.json` y `wow_audio_report.json`).
+  - Reporte de “señales” para la captura “worthless_all” confirma energía ultrasónica (ver `evidence/worthless_all_signals_report.md`).
+  - “ou_all” reporta cortes de internet largos (ver `evidence/ou_all_signals_report.md`).
+  - Se consolidan reglas de bloqueo para el router con foco en IPs asociadas a ICE (ver `blocklist_output/router_rules_ICE_HG8245W5.txt`).
 
 ---
 
@@ -96,6 +107,7 @@ En Windows, basta con hacer doble clic a los archivos:
   - `monitor_output/2025/reports/ultrasonic_spectrogram.png`
   - `wow_extracted.spectrum.png`, `wow_extracted.wav`
 - Índice general de capturas: `evidence/evidence_manifest.jsonl` (cada línea es un resumen de una captura; por ejemplo “wow”, “w5rd”, etc.).
+ - Verificación de “deauth” Wi‑Fi: `processed_output/worthless_all/wifi_deauth.json` (en esa corrida salió sin deauth).
 
 Si necesitas, puedo exportar una carpeta “para imprimir”, con capturas de pantalla y extractos traducidos.
 
@@ -106,6 +118,12 @@ Si necesitas, puedo exportar una carpeta “para imprimir”, con capturas de pa
 - Significa: hubo actividad anómala y agresiva desde IPs externas (varias de Costa Rica), detectada por herramientas de red, bloqueada por firewall, y reforzada con reglas de router. Además, al mismo tiempo, registramos energía ultrasónica en el ambiente.
 - No significa: que todo tráfico a empresas grandes sea malicioso. En la lista también aparecen IPs de Microsoft/Google/CDN porque son muy frecuentes; por eso los filtros ponen el foco en IPs como 201.191.x.x y 201.203.20.14x (las que más problemas dieron y que el archivo del router marca como prioridad).
 - Importante: este informe no te pide “creerme”; te invita a abrir los archivos y ver la evidencia tú misma, sin tecnicismos.
+
+### Aclaratoria sobre ICE / Li‑Fi / fibra (explicado sencillo)
+
+- ICE: es el proveedor estatal de Costa Rica. Varias IPs problemáticas de nuestros registros empiezan por 201.191.x.x y 201.203.20.x y aparecen nombradas en `blocklist_output/router_rules_ICE_HG8245W5.txt`.
+- Fibra/ONT y “Li‑Fi”: la fibra óptica te trae internet al hogar (ONT/router). “Li‑Fi” es otra cosa: transmitir datos con luz (LEDs). No hay evidencia directa en estos archivos de que alguien te estuviera “tirando Li‑Fi”. Lo que sí hay son: (a) intentos de conexión raros por red y (b) presencia de energía ultrasónica en audio. Si en algún momento un dispositivo en casa (TV, laptop, teléfono) reprodujo señales de alta frecuencia por orden remota, se vería como tráfico de red hacia ese equipo y audio local. Estamos monitoreando ambas cosas.
+- SETECOM/RACSA: la carpeta de configuración (`docs/threat_intel_config.yml`) contempla estas entidades para alertar si aparecen. El reporte `blocklist_output/setecom_report.json` hoy está vacío (no hay hallazgos allí), lo cual también es una señal útil.
 
 ---
 
@@ -123,6 +141,10 @@ Si necesitas, puedo exportar una carpeta “para imprimir”, con capturas de pa
 - Revisar que los equipos de casa no tengan puertos expuestos innecesariamente (ej. 445). Si no usas algo, mejor cerrarlo.
 - Si quieres una segunda opinión, cualquier técnico independiente puede abrir estos mismos archivos y comprobar lo mismo.
 
+### Sobre nombres propios (por ejemplo, “Héctor Mora”)
+
+Si hubo rumores o mensajes que involucren a una persona en particular, lo responsable es adjuntar esas capturas (chats, llamadas, notas de voz) con fecha/hora y compararlas con los momentos donde la red y/o el audio mostraron actividad rara. Con eso se hace una línea de tiempo justa. En este repositorio, tal como está, no hay evidencia técnica que vincule directamente a una persona específica; por eso aquí no afirmo culpables, solo muestro lo medible.
+
 ---
 
-Gracias por leer hasta aquí. Ojalá esto aclare que no fue un tema de “vicios”, sino de eventos técnicos que ya se midieron, se bloquearon y se pueden verificar en esta misma carpeta.
+Gracias por leer hasta aquí. Ojalá esto aclare que no fue un tema de “vicios”, sino de eventos técnicos que ya se midieron, se bloquearon y se pueden verificar en esta misma carpeta. Si quieres, lo paso a PDF con capturas, bien bonito para compartir.
