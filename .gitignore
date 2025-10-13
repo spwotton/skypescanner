@@ -5,3 +5,6 @@ monitor_output/
 *.raw
 *.pyc
 features_sample.csv
+tools/
+!tools/audio_bulk_demod_transcribe.py
+third_party/
