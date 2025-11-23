@@ -30,6 +30,22 @@ Supplying `--hf-model` automatically turns on scoring even if `--enable-ai-scori
 python analyze_logs.py monitor_output/monitored_traffic.jsonl --summary --csv-output features.csv
 ```
 
+## FRESA Node Simulation
+
+The FRESA (Frequency Radio Echo Scanner Array) node simulator provides automated signal detection and recording simulation:
+
+```bash
+python fresa_node.py
+```
+
+The simulator:
+- Monitors a target frequency (5184 kHz) for signal patterns
+- Detects when signal strength exceeds the RMS threshold (0.577)
+- Simulates automated recording when signals are detected
+- Models time-based signal variations and noise patterns
+
+Press CTRL+C to stop the simulation.
+
 ## Run Tests
 
 ```bash
