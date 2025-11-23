@@ -30,6 +30,16 @@ Supplying `--hf-model` automatically turns on scoring even if `--enable-ai-scori
 python analyze_logs.py monitor_output/monitored_traffic.jsonl --summary --csv-output features.csv
 ```
 
+## FRESA Node Signal Monitoring
+
+Monitor and detect signal patterns at specific frequencies:
+
+```bash
+python fresa_node.py
+```
+
+This starts a FRESA node that continuously scans for signal strength patterns and triggers recording when thresholds are exceeded. Press CTRL+C to stop monitoring.
+
 ## Run Tests
 
 ```bash
